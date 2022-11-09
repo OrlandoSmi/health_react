@@ -130,11 +130,23 @@ function Navbar() {
 
                 {/* </li> */}
             </div>
-            <div onClick={navToggle} className={icon}>
-                <div className="line1"></div>
-                <div className="line2"></div>
-                <div className="line3"></div>
+            <div className='flex flex-row sm:hidden'>
+                <div className='ml-2 mr-4 mt-[-5px] rounded-full border-2 border-[#ccc] p-[3px] shadow-2xl block sm:hidden'>
+                    {colorTheme === "light" &&
+                        <img src={lightMode} alt="lightMode" className='w-[20px] cursor-pointer' onClick={() => setTheme(colorTheme)} />
+                    }
+
+                    {colorTheme === "dark" &&
+                        <img src={nightMode} alt="nightMode" className='w-[20px] cursor-pointer' onClick={() => setTheme(colorTheme)} />
+                    }
+                </div>
+                <div onClick={navToggle} className={icon}>
+                    <div className="line1"></div>
+                    <div className="line2"></div>
+                    <div className="line3"></div>
+                </div>
             </div>
+
         </nav>
     );
 }

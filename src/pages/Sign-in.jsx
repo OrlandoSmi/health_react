@@ -23,7 +23,6 @@ function SignIn() {
                         <SignInSection />
                     </div>
                 </div>
-
             </div>
             <Footer />
         </motion.div>
