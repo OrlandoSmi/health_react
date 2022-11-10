@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 // import tetheart from '../../assets/tetheart.png'
+import logimg from '../../assets/log.svg'
+import registerimg from '../../assets/register.svg'
 import styles from "../../styles";
 import './SignInSection.css'
 import { useRef } from 'react'
 
 function SignInSection() {
+    const [passwordShown, setPasswordShown] = useState(false);
+    const [regPasswordShown, setRegPasswordShown] = useState(false);
+    const [signInFormData, setSignInFormData] = useState({
+        email: "",
+        password: ""
+    });
     const ref_container = useRef(null);
 
     const registerAnimation = (clicked) => {
@@ -18,7 +26,16 @@ function SignInSection() {
             container.classList.remove("sign-up-mode");
         }
     }
-
+    const toggleLoginPassword = () => {
+        // When the handler is invoked
+        // inverse the boolean state of passwordShown
+        setPasswordShown(!passwordShown);
+    };
+    const toggleSignupPassword = () => {
+        // When the handler is invoked
+        // inverse the boolean state of passwordShown
+        setRegPasswordShown(!regPasswordShown);
+    };
 
     return (
         // <section className={`flex md:flex-row flex-col ${styles.paddingY} transition duration-500 dark:bg-[#00040f]`}>
@@ -35,6 +52,7 @@ function SignInSection() {
         //     </div>
         // </section>
         <section>
+
             <div ref={ref_container} className="container">
 
                 <div className="forms-container">
@@ -42,12 +60,14 @@ function SignInSection() {
                         <form className="sign-in-form">
                             <h2 className="title dark:text-white">Sign in</h2>
                             <div className="input-field">
+                                <input type="text" placeholder="Email Address" onChange={(e) => { setSignInFormData({ ...signInFormData, email: e.target.value }) }} />
                                 <i className="fas fa-user"></i>
-                                <input type="text" placeholder="Username" />
                             </div>
                             <div className="input-field">
-                                <i className="fas fa-lock"></i>
-                                <input type="password" placeholder="Password" />
+
+                                <input type={passwordShown ? "text" : "password"} placeholder="Password" onChange={(e) => { setSignInFormData({ ...signInFormData, password: e.target.value }) }} />
+                                {passwordShown && <i className="fas fa-eye-slash" onClick={() => { toggleLoginPassword() }}></i>}
+                                {!passwordShown && <i className="fas fa-eye" onClick={() => { toggleLoginPassword() }}></i>}
                             </div>
                             {/* <input type="submit" value="Login" className="btn solid" /> */}
                             <button className="btn transparent border-2 border-redcolor text-redcolor">
@@ -56,32 +76,33 @@ function SignInSection() {
                             <p className="social-text dark:text-white">Or Sign in with social platforms</p>
                             <div className="social-media">
                                 <a href="google.com" className="social-icon">
-                                    <i className="fab fa-facebook-f"></i>
+                                    <i className="fab fa-facebook-f dark:text-dimWhite"></i>
                                 </a>
                                 <a href="google.com" className="social-icon">
-                                    <i className="fab fa-twitter"></i>
+                                    <i className="fab fa-twitter dark:text-dimWhite"></i>
                                 </a>
                                 <a href="google.com" className="social-icon">
-                                    <i className="fab fa-google"></i>
+                                    <i className="fab fa-google dark:text-dimWhite"></i>
                                 </a>
                                 <a href="google.com" className="social-icon">
-                                    <i className="fab fa-linkedin-in"></i>
+                                    <i className="fab fa-linkedin-in dark:text-dimWhite"></i>
                                 </a>
                             </div>
                         </form>
                         <form className="sign-up-form">
                             <h2 className="title dark:text-white">Sign up</h2>
                             <div className="input-field">
-                                <i className="fas fa-user"></i>
                                 <input type="text" placeholder="Username" />
+                                <i className="fas fa-user"></i>
                             </div>
                             <div className="input-field">
-                                <i className="fas fa-envelope"></i>
                                 <input type="email" placeholder="Email" />
+                                <i className="fas fa-envelope"></i>
                             </div>
                             <div className="input-field">
-                                <i className="fas fa-lock"></i>
-                                <input type="password" placeholder="Password" />
+                                <input type={regPasswordShown ? "text" : "password"} placeholder="Password" />
+                                {regPasswordShown && <i className="fas fa-eye-slash" onClick={() => { toggleSignupPassword() }}></i>}
+                                {!regPasswordShown && <i className="fas fa-eye" onClick={() => { toggleSignupPassword() }}></i>}
                             </div>
                             {/* <input type="submit" className="btn" value="Sign up" /> */}
                             <button className="btn transparent border-2 border-redcolor text-redcolor">
@@ -90,16 +111,16 @@ function SignInSection() {
                             <p className="social-text dark:text-white">Or Sign up with social platforms</p>
                             <div className="social-media">
                                 <a href="google.com" className="social-icon">
-                                    <i className="fab fa-facebook-f"></i>
+                                    <i className="fab fa-facebook-f dark:text-dimWhite"></i>
                                 </a>
                                 <a href="google.com" className="social-icon">
-                                    <i className="fab fa-twitter"></i>
+                                    <i className="fab fa-twitter dark:text-dimWhite"></i>
                                 </a>
                                 <a href="google.com" className="social-icon">
-                                    <i className="fab fa-google"></i>
+                                    <i className="fab fa-google dark:text-dimWhite"></i>
                                 </a>
                                 <a href="google.com" className="social-icon">
-                                    <i className="fab fa-linkedin-in"></i>
+                                    <i className="fab fa-linkedin-in dark:text-dimWhite"></i>
                                 </a>
                             </div>
                         </form>
@@ -127,7 +148,7 @@ function SignInSection() {
                                 Sign Up
                             </button>
                         </div>
-                        {/* <img src={tetheart} className="image" alt="" /> */}
+                        <img src={registerimg} className="image" alt="" />
                     </div>
                     <div className="panel right-panel">
                         <div className="content">
@@ -139,7 +160,7 @@ function SignInSection() {
                                 Sign In
                             </button>
                         </div>
-                        {/* <img src="tetheart" className="image" alt="" /> */}
+                        <img src={logimg} className="image" alt="" />
                     </div>
                 </div>
             </div>
