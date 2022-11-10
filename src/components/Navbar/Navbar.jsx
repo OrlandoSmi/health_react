@@ -6,6 +6,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import './Navbar.css'
 import './Switcher.css'
 import useDarkMode from '../../hook/useDarkMode';
+import { motion } from 'framer-motion';
 
 function Navbar() {
     const [colorTheme, setTheme] = useDarkMode()
@@ -41,61 +42,79 @@ function Navbar() {
                     <div className="line2"></div>
                     <div className="line3"></div>
                 </div>
-                <li className={`cursor-pointer nav__item br hover:scale-110 text-black hover:font-bold hover:text-redcolor ${pathMathRoute("/") &&
-                    "text-redcolor font-bold scale-110 border-b-2 border-b-redcolor"} duration-500 dark:text-dimWhite dark:hover:text-redcolor`} onClick={() => navigate("/")}>
+                <motion.li className={`cursor-pointer nav__item br hover:scale-110 text-black hover:font-bold hover:text-redcolor ${pathMathRoute("/") &&
+                    "text-redcolor font-bold scale-110 border-b-2 border-b-redcolor"} dark:text-dimWhite dark:hover:text-redcolor`} onClick={() => navigate("/")}
+                    whileHover={{ scale: 1.1, originX: 0 }}
+                    transition={{ type: 'spring', stiffness: 1000 }}>
                     <span className="nav__link">
                         Home
                     </span>
-                </li>
-                <li className="nav__item br hover:scale-110 text-black hover:font-bold hover:text-redcolor  duration-500 dark:text-dimWhite dark:hover:text-redcolor">
+                </motion.li>
+                <motion.li className="nav__item br hover:scale-110 text-black hover:font-bold hover:text-redcolor dark:text-dimWhite dark:hover:text-redcolor"
+                    whileHover={{ scale: 1.1, originX: 0 }}
+                    transition={{ type: 'spring', stiffness: 1000 }}>
                     <span className="nav__link">
                         About
                     </span>
-                </li>
-                <li className={`cursor-pointer nav__item br hover:scale-110 text-black hover:font-bold hover:text-redcolor 
-                ${pathMathRoute("/offers") && "text-redcolor font-bold scale-110 border-b-2 border-b-redcolor duration-500 dark:text-dimWhite"}`} onClick={() => navigate("/offers")}>
+                </motion.li>
+                <motion.li className={`cursor-pointer nav__item br hover:scale-110 text-black hover:font-bold hover:text-redcolor 
+                ${pathMathRoute("/offers") && "text-redcolor font-bold scale-110 border-b-2 border-b-redcolor dark:text-dimWhite"}`} onClick={() => navigate("/offers")}
+                    whileHover={{ scale: 1.1, originX: 0 }}
+                    transition={{ type: 'spring', stiffness: 1000 }}>
                     <span className="nav__link  duration-500 dark:text-dimWhite dark:hover:text-redcolor">
                         Offers
                     </span>
-                </li>
-                <li className="nav__item br hover:scale-110 text-black hover:font-bold hover:text-redcolor  duration-500 dark:text-dimWhite">
+                </motion.li>
+                <motion.li className="nav__item br hover:scale-110 text-black hover:font-bold hover:text-redcolor dark:text-dimWhite"
+                    whileHover={{ scale: 1.1, originX: 0 }}
+                    transition={{ type: 'spring', stiffness: 1000 }}>
                     <a href="google.com" className="nav__link">
                         Skills
                     </a>
-                </li>
-                <li className="nav__item br hover:scale-110 text-black hover:font-bold hover:text-redcolor  duration-500 dark:text-dimWhite">
+                </motion.li>
+                <motion.li className="nav__item br hover:scale-110 text-black hover:font-bold hover:text-redcolor dark:text-dimWhite"
+                    whileHover={{ scale: 1.1, originX: 0 }}
+                    transition={{ type: 'spring', stiffness: 1000 }}>
                     <span className="nav__link dark:hover:text-redcolor">
                         Contact
                     </span>
-                </li>
+                </motion.li>
                 {/* Show buttons on small screen */}
-                <li className="cursor-pointer nav__item nav__link__loginbtn transform transition-all hover:scale-125 md:mr-2 sm:hidden" onClick={() => navigate("/sign-in")}>
+                <motion.li className="cursor-pointer nav__item nav__link__loginbtn transform hover:scale-125 md:mr-2 sm:hidden" onClick={() => navigate("/sign-in")}
+                    whileHover={{ scale: 1.1, originX: 0 }}
+                    transition={{ type: 'spring', stiffness: 1000 }}>
                     <span className="nav__link">
                         Login
                     </span>
-                </li>
+                </motion.li>
 
-                <li className="cursor-pointer nav__item nav__link__signupbtn transform transition-all hover:scale-125 sm:hidden" onClick={() => navigate("/sign-up")}>
+                <motion.li className="cursor-pointer nav__item nav__link__signupbtn transform hover:scale-125 sm:hidden" onClick={() => navigate("/sign-up")}
+                    whileHover={{ scale: 1.1, originX: 0 }}
+                    transition={{ type: 'spring', stiffness: 1000 }}>
                     <span className="nav__link">
                         Sign Up
                     </span>
-                </li>
+                </motion.li>
             </ul>
             {/* Show buttons on large screen */}
             <div className='hidden flex-col sm:flex-row sm:flex items-center'>
-                <li className="cursor-pointer nav__item nav__link__loginbtn transform transition-all sm:mr-2" onClick={() => navigate("/sign-in")}>
+                <motion.li className="cursor-pointer nav__item nav__link__loginbtn transform" onClick={() => navigate("/sign-in")}
+                    whileHover={{ scale: 1.06, }}
+                    transition={{ type: 'spring', stiffness: 1000 }}>
                     <span className="nav__link">
                         Login
                     </span>
-                </li>
+                </motion.li>
 
-                <li className="cursor-pointer nav__item nav__link__signupbtn transform transition-all" onClick={() => navigate("/sign-up")}>
+                <motion.li className="cursor-pointer nav__item nav__link__signupbtn transform sm:mr-3 sm:ml-3" onClick={() => navigate("/sign-up")}
+                    whileHover={{ scale: 1.06, originX: 0 }}
+                    transition={{ type: 'spring', stiffness: 1000 }}>
                     <span className="nav__link">
                         Sign Up
                     </span>
-                </li>
+                </motion.li>
                 {/* <li className="cursor-pointer nav__item nav__link__signupbtn transform transition-all" onClick={() => navigate("/sign-up")}> */}
-                <div className='ml-2 rounded-full border-2 border-[#ccc] p-[3px] shadow-2xl'>
+                <div className='ml-1 rounded-full border-2 border-[#ccc] p-[3px] shadow-2xl'>
                     {colorTheme === "light" &&
                         <img src={lightMode} alt="lightMode" className='w-[20px] cursor-pointer' onClick={() => setTheme(colorTheme)} />
                     }

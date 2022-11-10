@@ -1,6 +1,7 @@
 import React from "react";
 import styles, { layout } from "../../styles";
 import map from '../../assets/map.png';
+import { motion } from 'framer-motion';
 
 const InfoSection = () => {
     return (
@@ -22,8 +23,12 @@ const InfoSection = () => {
                         of credit cards on the market.
                     </p>
 
-                    {/* <Button styles={`mt-10`} /> */}
-                    <button className={`mt-[35px] redBtnShadow ${styles.redButton} hover:bg-black transition-all duration-500`}>REGISTER NOW</button>
+
+                    <motion.button className={`mt-[35px] redBtnShadow ${styles.redButton} hover:bg-black dark:border-2 dark:border-redcolor`}
+                        whileHover={{ scale: 1.1, originX: 0 }}
+                        transition={{ type: 'spring', stiffness: 700 }}>
+                        REGISTER NOW
+                    </motion.button>
                 </div>
             </div>
         </section>

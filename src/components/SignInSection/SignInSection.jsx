@@ -34,13 +34,9 @@ function SignInSection() {
         //         {/* gradient end */}
         //     </div>
         // </section>
-        <section className=''>
+        <section>
             <div ref={ref_container} className="container">
-                {/* gradient start */}
-                <div className="absolute z-[0] w-[40%] h-[35%] top-0 pink__gradient hidden dark:block" />
-                <div className="absolute z-[1] w-[80%] h-[80%] rounded-full white__gradient bottom-40 hidden dark:block" />
-                <div className="absolute z-[0] w-[50%] h-[50%] right-20 bottom-20 blue__gradient hidden dark:block" />
-                {/* gradient end */}
+
                 <div className="forms-container">
                     <div className="signin-signup">
                         <form className="sign-in-form">
@@ -127,7 +123,7 @@ function SignInSection() {
                                     Sign Up
                                 </span>
                             </li> */}
-                            <button className="btn transparent border-2 border-redcolor bg-redcolor hover:border-white text-white" id="sign-up-btn" onClick={() => registerAnimation("sign-up-btn")}>
+                            <button className="btn transparent border-2  bg-redcolor border-white text-white" id="sign-up-btn" onClick={() => registerAnimation("sign-up-btn")}>
                                 Sign Up
                             </button>
                         </div>
@@ -139,7 +135,7 @@ function SignInSection() {
                             <p className={`${styles.paragraph} text-white`}>
                                 Already have an account? sign in below.
                             </p>
-                            <button className="btn transparent border-2 border-redcolor bg-redcolor hover:border-white text-white" id="sign-in-btn" onClick={() => registerAnimation("sign-in-btn")}>
+                            <button className="btn transparent border-2 bg-redcolor border-white text-white" id="sign-in-btn" onClick={() => registerAnimation("sign-in-btn")}>
                                 Sign In
                             </button>
                         </div>

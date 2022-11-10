@@ -1,6 +1,7 @@
 import React from "react";
 import styles, { layout } from "../../styles";
 import community from '../../assets/community.png';
+import { motion } from 'framer-motion';
 
 const CommunityInfo = () => {
     return (
@@ -18,7 +19,12 @@ const CommunityInfo = () => {
                     </p>
 
                     {/* <Button styles={`mt-10`} /> */}
-                    <button className={`mt-[35px] redBtnShadow ${styles.redButton} hover:bg-black transition-all duration-500`}>JOIN THE COMMUNITY</button>
+                    {/* <button className={`mt-[35px] redBtnShadow ${styles.redButton} hover:bg-black transition-all duration-500`}>JOIN THE COMMUNITY</button> */}
+                    <motion.button className={`mt-[35px] redBtnShadow ${styles.redButton} hover:bg-black dark:border-2 dark:border-redcolor`}
+                        whileHover={{ scale: 1.1, originX: 0 }}
+                        transition={{ type: 'spring', stiffness: 700 }}>
+                        JOIN THE COMMUNITY
+                    </motion.button>
                 </div>
             </div>
 

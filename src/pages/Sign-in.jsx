@@ -10,6 +10,7 @@ function SignIn() {
         <motion.div className="w-full overflow-hidden transition duration-[500] dark:bg-darkprimary"
             initial={{ width: 0 }}
             animate={{ width: "100%" }}
+            transition={{ type: 'spring', stiffness: 120 }}
             /*exit={{ x: window.innerWidth, transition: { duration: 0.3 }  }}*/>
             <div className="myherobg transition duration-[500] bg-[url('./assets/hero_bg1.png')] dark:bg-none">
                 <div className={`${styles.paddingX} ${styles.flexCenter}`}>

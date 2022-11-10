@@ -2,6 +2,7 @@ import React from 'react'
 import gift from '../assets/gift-box.png';
 import docnurse from '../assets/doc-nurse.png'
 import styles from "../styles";
+import { motion } from 'framer-motion';
 
 const Hero = () => {
     return (
@@ -33,7 +34,11 @@ const Hero = () => {
                     is to improve the health of every individual through proper health care.
                 </p>
                 {/* Add free consultation button here */}
-                <button className={`mt-[35px] redBtnShadow ${styles.redButton} hover:bg-black transition-all duration-500`}>GET A FREE CONSULTATION</button>
+                <motion.button className={`mt-[35px] redBtnShadow ${styles.redButton} hover:bg-black dark:border-2 dark:border-redcolor`}
+                    whileHover={{ scale: 1.1, originX: 0 }}
+                    transition={{ type: 'spring', stiffness: 700 }}>
+                    GET A FREE CONSULTATION
+                </motion.button>
             </div>
 
             <div className={`flex-1 flex ${styles.flexCenter} md:my-0 my-10 relative`}>
