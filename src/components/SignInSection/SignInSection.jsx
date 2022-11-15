@@ -13,7 +13,35 @@ function SignInSection() {
         email: "",
         password: ""
     });
+    const [signUpFormData, setSignUpFormData] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: ""
+    });
     const ref_container = useRef(null);
+    const ref_forgotcontainer = useRef(null)
+    const ref_signincontainer = useRef(null)
+
+    const forgotAnimation = (clicked) => {
+        const forgot_container = ref_forgotcontainer.current;
+        const signin_container = ref_signincontainer.current;
+
+        if (clicked === "sign-in") {
+            forgot_container.classList.add("scale-remove");
+            forgot_container.classList.remove("scale-add");
+
+            signin_container.classList.add("scale-add");
+            signin_container.classList.remove("scale-remove");
+        }
+        if (clicked === "forgot-pwd") {
+            signin_container.classList.add("scale-remove");
+            signin_container.classList.remove("scale-add");
+
+            forgot_container.classList.add("scale-add");
+            forgot_container.classList.remove("scale-remove");
+        }
+    }
 
     const registerAnimation = (clicked) => {
         //const root = window.document.documentElement;
@@ -58,20 +86,49 @@ function SignInSection() {
                 <div className="forms-container">
                     <div className="signin-signup">
                         <form className="sign-in-form">
-                            <h2 className="title dark:text-white">Sign in</h2>
+                            <div className='form-body flex flex-col justify-center items-center w-full ss:w-[380px]' ref={ref_signincontainer}>
+                                <h2 className="title dark:text-white">Sign in</h2>
+                                <div className="input-field">
+                                    <input type="text" placeholder="Email Address" onChange={(e) => { setSignInFormData({ ...signInFormData, email: e.target.value }) }} />
+                                    <i className="fas fa-user"></i>
+                                </div>
+                                <div className="input-field">
+
+                                    <input type={passwordShown ? "text" : "password"} placeholder="Password" onChange={(e) => { setSignInFormData({ ...signInFormData, password: e.target.value }) }} />
+                                    <i className={passwordShown ? "fas fa-eye-slash" : "fas fa-eye"} onClick={() => { toggleLoginPassword() }}></i>
+
+                                </div>
+                                <button className="btn transparent border-2 border-redcolor text-redcolor">
+                                    Login
+                                </button>
+                                <p className="social-text dark:text-white">Or Sign in with social platforms</p>
+                                <div className="social-media">
+                                    <a href="google.com" className="social-icon">
+                                        <i className="fab fa-facebook-f dark:text-dimWhite"></i>
+                                    </a>
+                                    <a href="google.com" className="social-icon">
+                                        <i className="fab fa-twitter dark:text-dimWhite"></i>
+                                    </a>
+                                    <a href="google.com" className="social-icon">
+                                        <i className="fab fa-google dark:text-dimWhite"></i>
+                                    </a>
+                                    <a href="google.com" className="social-icon">
+                                        <i className="fab fa-linkedin-in dark:text-dimWhite"></i>
+                                    </a>
+                                </div>
+                                <div className='mt-4 cursor-pointer hover:text-greencolor dark:text-whiteprimary'>
+                                    <span onClick={() => forgotAnimation("forgot-pwd")}>Forgot Password?</span>
+                                </div>
+                            </div>
+                        </form>
+                        <form className='forgot_password z-[2] scale-remove' ref={ref_forgotcontainer}>
+                            <h2 className="title dark:text-white">Forgot Password</h2>
                             <div className="input-field">
-                                <input type="text" placeholder="Email Address" onChange={(e) => { setSignInFormData({ ...signInFormData, email: e.target.value }) }} />
+                                <input type="text" placeholder="Email Address" />
                                 <i className="fas fa-user"></i>
                             </div>
-                            <div className="input-field">
-
-                                <input type={passwordShown ? "text" : "password"} placeholder="Password" onChange={(e) => { setSignInFormData({ ...signInFormData, password: e.target.value }) }} />
-                                {passwordShown && <i className="fas fa-eye-slash" onClick={() => { toggleLoginPassword() }}></i>}
-                                {!passwordShown && <i className="fas fa-eye" onClick={() => { toggleLoginPassword() }}></i>}
-                            </div>
-                            {/* <input type="submit" value="Login" className="btn solid" /> */}
-                            <button className="btn transparent border-2 border-redcolor text-redcolor">
-                                Login
+                            <button className="forgotbtn transparent border-2 border-redcolor text-redcolor">
+                                Send Reset Email
                             </button>
                             <p className="social-text dark:text-white">Or Sign in with social platforms</p>
                             <div className="social-media">
@@ -88,19 +145,24 @@ function SignInSection() {
                                     <i className="fab fa-linkedin-in dark:text-dimWhite"></i>
                                 </a>
                             </div>
+                            <span className='mt-4 cursor-pointer hover:text-greencolor dark:text-whiteprimary' onClick={() => forgotAnimation("sign-in")}>Already have an account. Login Here!</span>
                         </form>
                         <form className="sign-up-form">
                             <h2 className="title dark:text-white">Sign up</h2>
                             <div className="input-field">
-                                <input type="text" placeholder="Username" />
+                                <input type="text" placeholder="First Name" onChange={(e) => { setSignUpFormData({ ...signUpFormData, firstName: e.target.value }) }} />
                                 <i className="fas fa-user"></i>
                             </div>
                             <div className="input-field">
-                                <input type="email" placeholder="Email" />
+                                <input type="text" placeholder="Last Name" onChange={(e) => { setSignUpFormData({ ...signUpFormData, lastName: e.target.value }) }} />
+                                <i className="fas fa-user"></i>
+                            </div>
+                            <div className="input-field">
+                                <input type="email" placeholder="Email" onChange={(e) => { setSignUpFormData({ ...signUpFormData, email: e.target.value }) }} />
                                 <i className="fas fa-envelope"></i>
                             </div>
                             <div className="input-field">
-                                <input type={regPasswordShown ? "text" : "password"} placeholder="Password" />
+                                <input type={regPasswordShown ? "text" : "password"} placeholder="Password" onChange={(e) => { setSignUpFormData({ ...signUpFormData, password: e.target.value }) }} />
                                 {regPasswordShown && <i className="fas fa-eye-slash" onClick={() => { toggleSignupPassword() }}></i>}
                                 {!regPasswordShown && <i className="fas fa-eye" onClick={() => { toggleSignupPassword() }}></i>}
                             </div>
@@ -124,6 +186,7 @@ function SignInSection() {
                                 </a>
                             </div>
                         </form>
+
                     </div>
                 </div>
 
@@ -144,7 +207,7 @@ function SignInSection() {
                                     Sign Up
                                 </span>
                             </li> */}
-                            <button className="btn transparent border-2  bg-redcolor border-white text-white" id="sign-up-btn" onClick={() => registerAnimation("sign-up-btn")}>
+                            <button className="btn transparent border-2  bg-redcolor border-white text-white" id="sign-up-btn" onClick={() => { registerAnimation("sign-up-btn"); setTimeout(() => { forgotAnimation("sign-in") }, 500) }}>
                                 Sign Up
                             </button>
                         </div>

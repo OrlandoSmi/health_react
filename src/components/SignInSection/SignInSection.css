@@ -137,6 +137,21 @@ form.sign-in-form {
     transition: 0.5s;
 }
 
+.forgotbtn {
+    width: 200px;
+    /* background-color: #5995fd; */
+    /* border: none; */
+    outline: none;
+    height: 49px;
+    border-radius: 49px;
+    /* color: #fff; */
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
 .btn:hover {
     background-color: transparent
 }
@@ -221,6 +236,17 @@ form.sign-in-form {
 }
 
 /* ANIMATION */
+.scale-remove {
+    scale: 0;
+    opacity: 0;
+    transition: 0.5s 0.3s ease-in-out;
+}
+
+.scale-add {
+    scale: 1;
+    opacity: 1;
+    transition: 0.5s 0.3s ease-in-out;
+}
 
 .container.sign-up-mode:before {
     transform: translate(100%, -50%);
