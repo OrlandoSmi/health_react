@@ -1,5 +1,7 @@
 import { BrowserRouter as Router } from "react-router-dom";
 import AnimatedRoutes from "./components/AnimatedRoutes";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 //import { Routes, Route } from "react-router-dom";
 // import AnimatedRoutes from "./components/AnimatedRoutes";
 // import Dashboard from "./pages/Dashboard";
@@ -16,6 +18,18 @@ const App = () => {
       <Router>
         <AnimatedRoutes />
       </Router>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </>
   );
 }

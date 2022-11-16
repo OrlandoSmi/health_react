@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import styles, { layout } from "../../styles";
+import styles from "../../styles";
 
 // Import Swiper styles
 import "swiper/css";
@@ -46,8 +46,8 @@ const Testimonials = () => {
     return (
         <section className={`flex flex-col ${styles.paddingY} mt-[50px] mb-[50px]`}>
             <div className={`flex ${styles.flexCenter} mb-16`}>
-                <div className={layout.sectionInfo}>
-                    <h2 className={`font-semibold md:text-[45px] text-[37px] ss:leading-[49.8px] leading-[49px] dark:text-dimWhite`}>
+                <div className={` mb-8`}>
+                    <h2 className={` text-center font-semibold md:text-[45px] text-[37px] ss:leading-[49.8px] leading-[49px] dark:text-dimWhite`}>
                         Testimonials, We Care <br className="hidden ss:block" />For Our
                         <span className="text-redcolor"> Customers</span>{" "}
                     </h2>

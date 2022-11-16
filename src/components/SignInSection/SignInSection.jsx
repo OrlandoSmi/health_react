@@ -5,8 +5,14 @@ import registerimg from '../../assets/register.svg'
 import styles from "../../styles";
 import './SignInSection.css'
 import { useRef } from 'react'
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { db } from "../../firebase"
+import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function SignInSection() {
+    const navigate = useNavigate()
     const [passwordShown, setPasswordShown] = useState(false);
     const [regPasswordShown, setRegPasswordShown] = useState(false);
     const [signInFormData, setSignInFormData] = useState({
@@ -64,6 +70,68 @@ function SignInSection() {
         // inverse the boolean state of passwordShown
         setRegPasswordShown(!regPasswordShown);
     };
+
+    const onSignupSubmit = async (e) => {
+        e.preventDefault();
+        if (signUpFormData.firstName === "") {
+            toast.error("Please enter your first name")
+            return;
+        }
+        else if (signUpFormData.lastName === "") {
+            toast.error("Please enter your last name")
+            return;
+        }
+        else if (signUpFormData.password === "") {
+            toast.error("Please enter your password")
+            return;
+        }
+        else if (signUpFormData.email === "") {
+            toast.error("Please enter your email address")
+            return;
+        }
+        try {
+            const auth = getAuth();
+            const userCredentials = await createUserWithEmailAndPassword(auth, signUpFormData.email, signUpFormData.password)
+            updateProfile(auth.currentUser, {
+                displayName: signUpFormData.firstName + ' ' + signUpFormData.lastName
+            })
+            const user = userCredentials.user;
+            console.log(user)
+            //write new account to the users database
+            await setDoc(doc(db, "Users", user.uid),
+                {
+                    country: "",
+                    dob: "",
+                    email: signUpFormData.email,
+                    firstname: signUpFormData.firstName,
+                    lastname: signUpFormData.lastName,
+                    id: user.uid,
+                    phoneNumber: "",
+                    profileImage: '',
+                    timestamp: serverTimestamp()
+
+                });
+            toast.success("Signup was successful")
+            //navigate to the home page
+            navigate("/dashboard")
+        } catch (error) {
+            console.log(error.code);
+            console.log(error.message);
+            if (error.code === "auth/invalid-email") {
+                toast.error("Please enter a valid email address.")
+            }
+            else if (error.code === "auth/weak-password") {
+                toast.error("Please enter a stronger password with at least 6 characters.")
+            }
+            else if (error.code === "auth/email-already-in-use") {
+                toast.error("Sorry, Email address already registered.")
+            }
+            else {
+                toast.error("Something went wrong with the registration.")
+            }
+            //toast.error("Something went wrong with the registration.")
+        }
+    }
 
     return (
         // <section className={`flex md:flex-row flex-col ${styles.paddingY} transition duration-500 dark:bg-[#00040f]`}>
@@ -145,9 +213,9 @@ function SignInSection() {
                                     <i className="fab fa-linkedin-in dark:text-dimWhite"></i>
                                 </a>
                             </div>
-                            <span className='mt-4 cursor-pointer hover:text-greencolor dark:text-whiteprimary' onClick={() => forgotAnimation("sign-in")}>Already have an account. Login Here!</span>
+                            <span className='mt-4 cursor-pointer hover:text-greencolor dark:text-whiteprimary' onClick={() => forgotAnimation("sign-in")}>Login Here Instead!</span>
                         </form>
-                        <form className="sign-up-form">
+                        <form onSubmit={onSignupSubmit} className="sign-up-form">
                             <h2 className="title dark:text-white">Sign up</h2>
                             <div className="input-field">
                                 <input type="text" placeholder="First Name" onChange={(e) => { setSignUpFormData({ ...signUpFormData, firstName: e.target.value }) }} />
