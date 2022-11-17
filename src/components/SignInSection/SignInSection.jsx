@@ -5,7 +5,7 @@ import registerimg from '../../assets/register.svg'
 import styles from "../../styles";
 import './SignInSection.css'
 import { useRef } from 'react'
-import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword } from "firebase/auth";
 import { db } from "../../firebase"
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
@@ -74,6 +74,38 @@ function SignInSection() {
 
     const onSigninSubmit = async (e) => {
         e.preventDefault();
+
+        try {
+            if (signInFormData.email === "") {
+                toast.error("Please enter your email address")
+                return;
+            }
+            else if (signInFormData.password === "") {
+                toast.error("Please enter a strong password")
+                return;
+            }
+            const auth = getAuth();
+            const userCredentials = await signInWithEmailAndPassword(auth, signInFormData.email, signInFormData.password)
+            console.log(userCredentials)
+            if (userCredentials.user) {
+                navigate("/dashboard");
+                toast.success("Signin successful")
+            } else {
+                toast.error("Incorrect credentials")
+            }
+        } catch (error) {
+            console.log(error.code)
+            if (error.code === "auth/invalid-email") {
+                toast.error("Please enter a valid email address")
+            }
+            else if (error.code === "auth/user-not-found") {
+                toast.error("No user found, please check credentials")
+            }
+            else {
+                toast.error("Something went wrong with the signin")
+            }
+
+        }
     }
     const onSignupSubmit = async (e) => {
         e.preventDefault();
@@ -86,7 +118,7 @@ function SignInSection() {
             return;
         }
         else if (signUpFormData.password === "") {
-            toast.error("Please enter your password")
+            toast.error("Please enter a strong password")
             return;
         }
         else if (signUpFormData.email === "") {
