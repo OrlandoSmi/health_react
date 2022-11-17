@@ -5,7 +5,7 @@ import registerimg from '../../assets/register.svg'
 import styles from "../../styles";
 import './SignInSection.css'
 import { useRef } from 'react'
-import { getAuth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { db } from "../../firebase"
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
@@ -16,6 +16,10 @@ function SignInSection() {
     const navigate = useNavigate()
     const [passwordShown, setPasswordShown] = useState(false);
     const [regPasswordShown, setRegPasswordShown] = useState(false);
+
+    const [resetPwdFormData, setResetPwdFormData] = useState({
+        email: "",
+    });
     const [signInFormData, setSignInFormData] = useState({
         email: "",
         password: ""
@@ -72,6 +76,32 @@ function SignInSection() {
         setRegPasswordShown(!regPasswordShown);
     };
 
+    const onForgorSubmit = async (e) => {
+        e.preventDefault();
+
+        if (resetPwdFormData.email === "") {
+            toast.error("Please enter your email address.")
+            return;
+        }
+
+        try {
+            const auth = getAuth();
+            await sendPasswordResetEmail(auth, resetPwdFormData.email)
+            toast.success("Success! Password reset link was sent to your email")
+        } catch (error) {
+            console.log(error.code)
+            if (error.code === "auth/invalid-email") {
+                toast.error("Please enter a valid email address.")
+            }
+            else if (error.code === "auth/user-not-found") {
+                toast.error("Email address not found on our server.")
+            }
+            else {
+                toast.error("Something went wrong, could not send password.")
+            }
+
+        }
+    }
     const onSigninSubmit = async (e) => {
         e.preventDefault();
 
@@ -212,10 +242,10 @@ function SignInSection() {
                                 </div>
                             </div>
                         </form>
-                        <form className='forgot_password z-[2] scale-remove' ref={ref_forgotcontainer}>
+                        <form onSubmit={onForgorSubmit} className='forgot_password z-[2] scale-remove' ref={ref_forgotcontainer}>
                             <h2 className="title dark:text-white">Forgot Password</h2>
                             <div className="input-field">
-                                <input type="text" placeholder="Email Address" />
+                                <input type="text" placeholder="Email Address" onChange={(e) => { setResetPwdFormData({ ...resetPwdFormData, email: e.target.value }) }} />
                                 <i className="fas fa-user"></i>
                             </div>
                             <button className="forgotbtn transparent border-2 border-redcolor text-redcolor">
