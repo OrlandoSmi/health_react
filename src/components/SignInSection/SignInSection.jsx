@@ -10,6 +10,7 @@ import { db } from "../../firebase"
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import SocialIcons from './SocialIcons';
 
 function SignInSection() {
     const navigate = useNavigate()
@@ -71,6 +72,9 @@ function SignInSection() {
         setRegPasswordShown(!regPasswordShown);
     };
 
+    const onSigninSubmit = async (e) => {
+        e.preventDefault();
+    }
     const onSignupSubmit = async (e) => {
         e.preventDefault();
         if (signUpFormData.firstName === "") {
@@ -112,7 +116,7 @@ function SignInSection() {
 
                 });
             toast.success("Signup was successful")
-            //navigate to the home page
+            //navigate to the dashboard
             navigate("/dashboard")
         } catch (error) {
             console.log(error.code);
@@ -153,7 +157,7 @@ function SignInSection() {
 
                 <div className="forms-container">
                     <div className="signin-signup">
-                        <form className="sign-in-form">
+                        <form onSubmit={onSigninSubmit} className="sign-in-form">
                             <div className='form-body flex flex-col justify-center items-center w-full ss:w-[380px]' ref={ref_signincontainer}>
                                 <h2 className="title dark:text-white">Sign in</h2>
                                 <div className="input-field">
@@ -170,20 +174,7 @@ function SignInSection() {
                                     Login
                                 </button>
                                 <p className="social-text dark:text-white">Or Sign in with social platforms</p>
-                                <div className="social-media">
-                                    <a href="google.com" className="social-icon">
-                                        <i className="fab fa-facebook-f dark:text-dimWhite"></i>
-                                    </a>
-                                    <a href="google.com" className="social-icon">
-                                        <i className="fab fa-twitter dark:text-dimWhite"></i>
-                                    </a>
-                                    <a href="google.com" className="social-icon">
-                                        <i className="fab fa-google dark:text-dimWhite"></i>
-                                    </a>
-                                    <a href="google.com" className="social-icon">
-                                        <i className="fab fa-linkedin-in dark:text-dimWhite"></i>
-                                    </a>
-                                </div>
+                                <SocialIcons />
                                 <div className='mt-4 cursor-pointer hover:text-greencolor dark:text-whiteprimary'>
                                     <span onClick={() => forgotAnimation("forgot-pwd")}>Forgot Password?</span>
                                 </div>
@@ -199,20 +190,7 @@ function SignInSection() {
                                 Send Reset Email
                             </button>
                             <p className="social-text dark:text-white">Or Sign in with social platforms</p>
-                            <div className="social-media">
-                                <a href="google.com" className="social-icon">
-                                    <i className="fab fa-facebook-f dark:text-dimWhite"></i>
-                                </a>
-                                <a href="google.com" className="social-icon">
-                                    <i className="fab fa-twitter dark:text-dimWhite"></i>
-                                </a>
-                                <a href="google.com" className="social-icon">
-                                    <i className="fab fa-google dark:text-dimWhite"></i>
-                                </a>
-                                <a href="google.com" className="social-icon">
-                                    <i className="fab fa-linkedin-in dark:text-dimWhite"></i>
-                                </a>
-                            </div>
+                            <SocialIcons />
                             <span className='mt-4 cursor-pointer hover:text-greencolor dark:text-whiteprimary' onClick={() => forgotAnimation("sign-in")}>Login Here Instead!</span>
                         </form>
                         <form onSubmit={onSignupSubmit} className="sign-up-form">
@@ -239,20 +217,7 @@ function SignInSection() {
                                 Sign Up
                             </button>
                             <p className="social-text dark:text-white">Or Sign up with social platforms</p>
-                            <div className="social-media">
-                                <a href="google.com" className="social-icon">
-                                    <i className="fab fa-facebook-f dark:text-dimWhite"></i>
-                                </a>
-                                <a href="google.com" className="social-icon">
-                                    <i className="fab fa-twitter dark:text-dimWhite"></i>
-                                </a>
-                                <a href="google.com" className="social-icon">
-                                    <i className="fab fa-google dark:text-dimWhite"></i>
-                                </a>
-                                <a href="google.com" className="social-icon">
-                                    <i className="fab fa-linkedin-in dark:text-dimWhite"></i>
-                                </a>
-                            </div>
+                            <SocialIcons />
                         </form>
 
                     </div>
