@@ -8,6 +8,7 @@ import SignIn from "../pages/Sign-in";
 import SignUp from "../pages/Sign-up";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from 'framer-motion'
+import PrivateRoute from './PrivateRoute/PrivateRoute';
 
 function AnimatedRoutes() {
     const location = useLocation();
@@ -15,7 +16,9 @@ function AnimatedRoutes() {
         <AnimatePresence>
             <Routes location={location} key={location.pathname}>
                 <Route path="/" element={<Home />} />
-                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path='/dashboard' element={<PrivateRoute />}>
+                    <Route path="/dashboard" element={<Dashboard />} />
+                </Route>
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/sign-in" element={<SignIn />} />
                 <Route path="/sign-up" element={<SignUp />} />
