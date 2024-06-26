@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Queries
+    url: https://wipaycaribbean.com/
+    about: You can send queries to support@wipaytoday.com
+  - name: Login does not work
+    url: https://github.com/Balastrong/github-stats/blob/main/CONTRIBUTING.md
+    about: Before opening a new issue, please make sure to read CONTRIBUTING.md
